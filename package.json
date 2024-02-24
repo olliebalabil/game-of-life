@@ -1,0 +1,15 @@
+{
+  "name": "game-of-life",
+  "version": "1.0.0",
+  "description": "This project implements Conway's Game of Life using vanilla JavaScript, HTML, and CSS. It provides an audible representation of the Game of Life, allowing users to both see and hear the evolution of the cellular automaton.",
+  "main": "index.js",
+  "scripts": {
+    "start":"node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
