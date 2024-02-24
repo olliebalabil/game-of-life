@@ -22,13 +22,13 @@
     </div>
     <div class="options">
      
-      <select name="size" id="resolution">
+      <!-- <select name="size" id="resolution">
         <optgroup label="Size:">
       </optgroup>
         <option value="8">Small</option>
         <option value="20">Medium</option>
         <option value="50">Big</option>
-      </select>
+      </select> -->
       <select name="speed" id="speed">
         <optgroup label="Speed:">
         </optgroup>
@@ -36,13 +36,17 @@
         <option value="250" selected>Medium</option>
         <option value="50">Fast</option>
       </select>
+      <label>
+        <input type="checkbox" id="sound"name="myCheckbox"> Play Sound (careful of your volume!)
+    </label>
     </div>
     
+    <p>This website provides an audible representation of <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a>. Create and play your own patterns by clicking on the grid, or explore randomly generated patterns. A sound is produced when a cell becomes live (i.e. turns black). In essense, the further down or further right a cell is, the higher it is. Each cell on the same row is in the same pentatonic scale, while as you descend down a column, the frequency of each cell ascends by a fourth.</p>
+
   </div>
 
 
-
-  <script src="index.js"></script>
+  <script src="index.js" type="module"></script>
 </body>
 
 </html>

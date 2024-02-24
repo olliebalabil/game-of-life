@@ -1,4 +1,3 @@
-
 const canvas = document.querySelector("canvas")
 const ctx = canvas.getContext("2d")
 const startButton = document.querySelector("#start")
@@ -7,22 +6,30 @@ const pauseButton = document.querySelector("#pause")
 const randomButton = document.querySelector("#random")
 const resolutionSelect = document.querySelector("#resolution")
 const speedSelect = document.querySelector("#speed")
+const sound = document.querySelector("#sound")
 
-let resolution= resolutionSelect.value
+let resolution = 20
 let speed = speedSelect.value
 
 canvas.width = 400
 canvas.height = 400
 canvas.addEventListener('click', handleClick)
 
-
-
 let COLS = canvas.width / resolution;
 let ROWS = canvas.height / resolution;
 let timeoutIds = []
 let grid
+
 grid = buildGrid()
 render(grid)
+
+
+// create web audio api context
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const gainNode = audioCtx.createGain()
+gainNode.gain.value=0.006
+
+
 
 function buildGrid() {
   return new Array(COLS).fill(null)
@@ -38,7 +45,6 @@ function handleClick(e) {
   const clickedRow = Math.floor(mouseY / resolution);
   const clickedCol = Math.floor(mouseX / resolution);
   grid[clickedCol][clickedRow] = 1 - grid[clickedCol][clickedRow]
-  // console.log(clickedCol,clickedRow)
   render(grid)
 }
 
@@ -57,22 +63,18 @@ clearButton.addEventListener("click", () => {
   }
   render(grid)
 })
-pauseButton.addEventListener("click",()=>{
+pauseButton.addEventListener("click", () => {
   clearTimeouts()
 })
-randomButton.addEventListener("click",()=>{
+randomButton.addEventListener("click", () => {
   grid = buildGrid()
   render(grid)
 })
-resolutionSelect.addEventListener("change",()=>{
-  resolution = resolutionSelect.value
-  grid = buildGrid()
-render(grid)
-})
-speedSelect.addEventListener("change",()=>{
+
+speedSelect.addEventListener("change", () => {
   speed = speedSelect.value
   clearTimeouts()
-  update()
+  // update()
 })
 
 
@@ -89,6 +91,7 @@ function update() {
   timeoutIds.push(timeoutId)
 }
 function nextGen(grid) {
+
   const nextGen = grid.map(arr => [...arr])
   for (let col = 0; col < grid.length; col++) {
     for (let row = 0; row < grid[col].length; row++) {
@@ -118,7 +121,34 @@ function nextGen(grid) {
         }
       } else {
         if (numNeighbors == 3) {
-          nextGen[col][row] = 1
+          if(col<COLS && row<ROWS ) {
+            nextGen[col][row] = 1
+          }
+
+
+          if (sound.checked) {
+            // create Oscillator node
+            const oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sine'
+            const baseFrequency = [65.41,87.31,116.54,155.56,207.65,277.18,369.99,493.88,659.26,880,1174.66,1567.98];
+            const scaleDegrees = [0,2,4,7,9,12
+              // ,14,16,19,21,24
+            ]; //pentatonic notes within two octaves
+            const scaleDegreeIndex = Math.floor((col/COLS)*scaleDegrees.length);
+            const scaleDegree = scaleDegrees[scaleDegreeIndex];
+            oscillator.frequency.value = baseFrequency[Math.floor((row/ROWS)*12)]*2 *Math.pow(2, scaleDegree / 12)
+            oscillator.connect(gainNode).connect(audioCtx.destination);
+  
+            oscillator.start();
+            setTimeout(() => {
+              oscillator.stop()
+            }, speed)
+
+          }
+
+
+
+
         }
       }
     }
