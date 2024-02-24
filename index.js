@@ -4,7 +4,6 @@ const startButton = document.querySelector("#start")
 const clearButton = document.querySelector("#clear")
 const pauseButton = document.querySelector("#pause")
 const randomButton = document.querySelector("#random")
-const resolutionSelect = document.querySelector("#resolution")
 const speedSelect = document.querySelector("#speed")
 const sound = document.querySelector("#sound")
 
