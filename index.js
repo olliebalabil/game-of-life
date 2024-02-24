@@ -13,6 +13,13 @@ let speed = 250
 canvas.width = 400
 canvas.height = 400
 canvas.addEventListener('click', handleClick)
+// Touch event listeners
+canvas.addEventListener('touchstart', function(event) {
+    // Prevent the default touch behavior
+    event.preventDefault();
+    // Call the same function as click handler
+    handleClick(event.touches[0]); // Passes the first touch point's coordinates
+});
 
 let COLS = canvas.width / resolution;
 let ROWS = canvas.height / resolution;
