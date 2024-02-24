@@ -8,7 +8,7 @@ const speedSelect = document.querySelector("#speed")
 const sound = document.querySelector("#sound")
 
 let resolution = 20
-let speed = speedSelect.value
+let speed = parseInt(speedSelect.value)
 
 canvas.width = 400
 canvas.height = 400
