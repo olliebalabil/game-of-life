@@ -10,9 +10,13 @@ body {
 }
 
 
-p, h1 {
+h1, h3 {
   font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
   text-align: center;
+}
+p{
+  font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
+  text-align: justify;
 }
 
 .buttons {
@@ -147,4 +151,13 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked {
   background-color: #000;
   /* Change background color when checked */
+}
+
+#presets {
+  display: flex;
+  justify-content: center;
+}
+input[type="number"] {
+  width: 6vw;
+  margin-right: 3px;
 }

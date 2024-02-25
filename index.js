@@ -6,6 +6,9 @@ const pauseButton = document.querySelector("#pause")
 const randomButton = document.querySelector("#random")
 const speedSelect = document.querySelector("#speed")
 const sound = document.querySelector("#sound")
+const glidersButton = document.querySelector("#gliders")
+const pulsarButton = document.querySelector("#pulsar")
+const pentadecthlonsButton = document.querySelector("#pentadecthlons")
 
 let resolution = 20
 let speed = 250
@@ -78,9 +81,20 @@ randomButton.addEventListener("click", () => {
 })
 
 speedSelect.addEventListener("change", () => {
-  speed = speedSelect.value
-  clearTimeouts()
-  // update()
+  speed = 60000/speedSelect.value
+  
+})
+glidersButton.addEventListener("click",()=>{
+  grid = gliders()
+  render(grid)
+})
+pulsarButton.addEventListener("click", ()=>{
+  grid = pulsar()
+  render(grid)
+})
+pentadecthlonsButton.addEventListener("click", ()=>{
+  grid = pentadecthlons()
+  render(grid)
 })
 
 
@@ -90,6 +104,7 @@ function clearTimeouts() {
 }
 function update() {
   grid = nextGen(grid)
+
   render(grid)
   let timeoutId = setTimeout(() => {
     update()
@@ -170,7 +185,152 @@ function render(grid) {
       ctx.rect(col * resolution, row * resolution, resolution, resolution)
       ctx.fillStyle = cell ? 'black' : 'white'
       ctx.fill()
-      // ctx.stroke()
     }
   }
+}
+
+function gliders() {
+  let arr = new Array(COLS).fill(null)
+  .map(() => new Array(ROWS).fill(0))
+  arr[2][0]=1
+  arr[2][1]=1
+  arr[2][2]=1
+  arr[1][2]=1
+  arr[0][1]=1
+
+  arr[19][2]=1
+  arr[18][2]=1
+  arr[17][2]=1
+  arr[17][1]=1
+  arr[18][0]=1
+
+  arr[17][18]=1
+  arr[17][19]=1
+  arr[17][17]=1
+  arr[18][17]=1
+  arr[19][18]=1
+
+  arr[0][17]=1
+  arr[1][17]=1
+  arr[2][17]=1
+  arr[2][18]=1
+  arr[1][19]=1
+
+
+  return arr;
+}
+
+function pulsar(){
+  let arr = new Array(COLS).fill(null)
+  .map(() => new Array(ROWS).fill(0))
+
+  arr[8][8]=1
+  arr[8][7]=1
+  arr[8][6]=1
+  arr[7][9]=1
+  arr[6][9]=1
+  arr[5][9]=1
+  arr[3][7]=1
+  arr[3][8]=1
+  arr[3][6]=1
+  arr[5][4]=1
+  arr[6][4]=1
+  arr[7][4]=1
+
+  arr[18-8][8]=1
+  arr[18-8][7]=1
+  arr[18-8][6]=1
+  arr[18-7][9]=1
+  arr[18-6][9]=1
+  arr[18-5][9]=1
+  arr[18-3][7]=1
+  arr[18-3][8]=1
+  arr[18-3][6]=1
+  arr[18-5][4]=1
+  arr[18-6][4]=1
+  arr[18-7][4]=1
+
+  arr[18-8][20-8]=1
+  arr[18-8][20-7]=1
+  arr[18-8][20-6]=1
+  arr[18-7][20-9]=1
+  arr[18-6][20-9]=1
+  arr[18-5][20-9]=1
+  arr[18-3][20-7]=1
+  arr[18-3][20-8]=1
+  arr[18-3][20-6]=1
+  arr[18-5][20-4]=1
+  arr[18-6][20-4]=1
+  arr[18-7][20-4]=1
+
+  arr[8][20-8]=1
+  arr[8][20-7]=1
+  arr[8][20-6]=1
+  arr[7][20-9]=1
+  arr[6][20-9]=1
+  arr[5][20-9]=1
+  arr[3][20-7]=1
+  arr[3][20-8]=1
+  arr[3][20-6]=1
+  arr[5][20-4]=1
+  arr[6][20-4]=1
+  arr[7][20-4]=1
+  return arr
+}
+
+function pentadecthlons() {
+  let arr = new Array(COLS).fill(null)
+  .map(() => new Array(ROWS).fill(0))
+
+  arr[3][10]=1
+  arr[3][9]=1
+  arr[3][8]=1
+  arr[3][7]=1
+  arr[3][6]=1
+  arr[3][11]=1
+  arr[3][12]=1
+  arr[3][13]=1
+  arr[5][10]=1
+  arr[5][9]=1
+  arr[5][8]=1
+  arr[5][7]=1
+  arr[5][6]=1
+  arr[5][11]=1
+  arr[5][12]=1
+  arr[5][13]=1
+  arr[4][10]=1
+  arr[4][9]=1
+  arr[4][8]=1
+  arr[4][6]=1
+  arr[4][11]=1
+  arr[4][13]=1
+
+  arr[3+11][10]=1
+  arr[3+11][9]=1
+  arr[3+11][8]=1
+  arr[3+11][7]=1
+  arr[3+11][6]=1
+  arr[3+11][11]=1
+  arr[3+11][12]=1
+  arr[3+11][13]=1
+  arr[5+11][10]=1
+  arr[5+11][9]=1
+  arr[5+11][8]=1
+  arr[5+11][7]=1
+  arr[5+11][6]=1
+  arr[5+11][11]=1
+  arr[5+11][12]=1
+  arr[5+11][13]=1
+  arr[4+11][10]=1
+  arr[4+11][9]=1
+  arr[4+11][8]=1
+  arr[4+11][6]=1
+  arr[4+11][11]=1
+  arr[4+11][13]=1
+
+
+
+
+
+  return arr;
 }
