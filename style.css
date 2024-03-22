@@ -5,8 +5,8 @@ body {
 }
 
 #canvas {
-  height: 60vh;
-  width: 60vh;
+  height: min(60vw,70vh);
+  aspect-ratio: 1/1;
 }
 
 
@@ -23,6 +23,7 @@ p{
   display:flex;
   justify-content: center;
   padding: 2vh;
+  
 }
 
 .options {
